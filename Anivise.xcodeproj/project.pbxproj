@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C570EB482CB153CA00FF9932 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C570EB462CB153BE00FF9932 /* README.md */; };
+		C570EB532CB15E1600FF9932 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C570EB522CB15E1600FF9932 /* FirebaseAuth */; };
+		C570EB552CB15E1600FF9932 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C570EB542CB15E1600FF9932 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C570EB2A2CB1537E00FF9932 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +33,7 @@
 		C570EB142CB1537C00FF9932 /* Anivise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anivise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C570EB292CB1537E00FF9932 /* AniviseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AniviseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C570EB332CB1537E00FF9932 /* AniviseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AniviseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C570EB462CB153BE00FF9932 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C570EB532CB15E1600FF9932 /* FirebaseAuth in Frameworks */,
+				C570EB552CB15E1600FF9932 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +84,7 @@
 		C570EB0B2CB1537C00FF9932 = {
 			isa = PBXGroup;
 			children = (
+				C570EB462CB153BE00FF9932 /* README.md */,
 				C570EB162CB1537C00FF9932 /* Anivise */,
 				C570EB2C2CB1537E00FF9932 /* AniviseTests */,
 				C570EB362CB1537E00FF9932 /* AniviseUITests */,
@@ -112,6 +122,8 @@
 			);
 			name = Anivise;
 			packageProductDependencies = (
+				C570EB522CB15E1600FF9932 /* FirebaseAuth */,
+				C570EB542CB15E1600FF9932 /* FirebaseFirestore */,
 			);
 			productName = Anivise;
 			productReference = C570EB142CB1537C00FF9932 /* Anivise.app */;
@@ -195,6 +207,9 @@
 			);
 			mainGroup = C570EB0B2CB1537C00FF9932;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C570EB152CB1537C00FF9932 /* Products */;
 			projectDirPath = "";
@@ -212,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C570EB482CB153CA00FF9932 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,8 +418,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -431,8 +449,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -558,6 +578,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C570EB522CB15E1600FF9932 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C570EB542CB15E1600FF9932 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C570EB0C2CB1537C00FF9932 /* Project object */;
 }
