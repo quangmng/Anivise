@@ -13,7 +13,8 @@
 ```
 https://github.com/firebase/firebase-ios-sdk.git
 ```
-- GoogleService-Info.plist: required to test Firebase functions, place it in project's root folder. (Note for Advanced iOS Development course: This file will be attached in Canvas Assignment .zip submission. Not available in Github repo for security reasons.)
+- `GoogleService-Info.plist`: required to test Firebase functions, place it in project's root folder. 
+<br>(Note for Advanced iOS Development course: This file will be attached in Canvas Assignment .zip submission. Not available in Github repo for security reasons.)
 
 ### What is Anivise?
 ### *Anivise - anime.visualise*
