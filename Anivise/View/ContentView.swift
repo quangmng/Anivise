@@ -6,33 +6,54 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ContentView: View {
     @State private var isTabViewHidden = false
+
     var body: some View {
         NavigationStack {
             if !isTabViewHidden {
-                TabView{
-                    Tab("Home", systemImage: "house") {
+                if #available(iOS 18.0, *) {
+                    // iOS 18+ uses the new Tab code
+                    TabView {
+                        Tab("Home", systemImage: "house") {
+                            HomeView()
+                        }
+
+                        Tab("Discover", systemImage: "film.stack") {
+                            Text("Discover View")
+                        }
+
+                        Tab("Profile", systemImage: "person") {
+                            ProfileView()
+                        }
+                    }
+                    .navigationTitle("Anivise")
+                } else {
+                    // Fallback for iOS 17 and earlier using .tabItem
+                    TabView {
                         HomeView()
-                        
-                    }
-//                    .badge("new")
-                    Tab("Discover", systemImage: "film.stack"){
-                        
-                    }
-                    Tab("Profile", systemImage: "person"){
+                            .tabItem {
+                                Label("Home", systemImage: "house")
+                            }
+
+                        Text("Discover View")
+                            .tabItem {
+                                Label("Discover", systemImage: "film.stack")
+                            }
+
                         ProfileView()
+                            .tabItem {
+                                Label("Profile", systemImage: "person")
+                            }
                     }
+                    .navigationTitle("Anivise")
                 }
-                .navigationTitle("Anivise")
             }
         }
-        
-        
     }
 }
+
 #Preview {
     ContentView()
 }

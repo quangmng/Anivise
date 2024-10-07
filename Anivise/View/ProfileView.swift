@@ -37,7 +37,7 @@ struct ProfileView: View {
                         signOut()
                     }) {
                         Text("Sign Out")
-                            .padding()
+                            .padding(10)
                             .background(Color.red)
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -48,7 +48,7 @@ struct ProfileView: View {
                         showLogin.toggle()
                     } label: {
                         Text("Sign In")
-                            .padding()
+                            .padding(10)
                             .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -62,7 +62,9 @@ struct ProfileView: View {
                                         Button(action: {
                                             showLogin = false
                                         }) {
-                                            CloseButton().frame(width: 24, height: 24)
+                                            CloseButton()
+                                            .frame(width: 36, height: 36)
+                                            .padding(.top)
                                         }
                                     }
                                 }

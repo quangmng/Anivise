@@ -13,7 +13,11 @@
 ```
 https://github.com/firebase/firebase-ios-sdk.git
 ```
-- `GoogleService-Info.plist`: required to test Firebase functions, place it in project's root folder. 
+- Sign in with Google iOS module  - Add link to project dependencies if missing:
+```
+https://github.com/google/GoogleSignIn-iOS.git
+```
+- `GoogleService-Info.plist`: required to test Firebase functions, place it in project's root folder. (in Anivise folder) 
 <br>(Note for Advanced iOS Development course: This file will be attached in Canvas Assignment .zip submission. Not available in Github repo for security reasons.)
 
 ### What is Anivise?

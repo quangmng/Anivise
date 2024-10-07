@@ -16,6 +16,7 @@ struct LoginView: View {
             TextField("Enter your email", text: $viewModel.email)
                 .textInputAutocapitalization(.none)
                 .autocorrectionDisabled(true)
+                .keyboardType(.emailAddress)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
                 
@@ -31,12 +32,12 @@ struct LoginView: View {
                     Image(systemName: "person.fill")
                     Text("Sign in")
                 }
-                .padding()
+                .padding(10)
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(10)
             }
-            
+            .padding(.bottom, 8)
             Text("OR")
 
             // Google sign-in button
@@ -47,8 +48,7 @@ struct LoginView: View {
                         .frame(width: 25, height: 25)
                     Text("Sign in with Google")
                 }
-                .padding()
-                .buttonStyle(.borderedProminent)
+                .padding(10)
                 .background(Color.green)
                 .foregroundColor(.white)
                 .cornerRadius(10)
