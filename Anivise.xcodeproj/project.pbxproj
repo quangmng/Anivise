@@ -10,6 +10,9 @@
 		C570EB482CB153CA00FF9932 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C570EB462CB153BE00FF9932 /* README.md */; };
 		C570EB532CB15E1600FF9932 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C570EB522CB15E1600FF9932 /* FirebaseAuth */; };
 		C570EB552CB15E1600FF9932 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C570EB542CB15E1600FF9932 /* FirebaseFirestore */; };
+		C570EB692CB184A600FF9932 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = C570EB682CB184A600FF9932 /* FirebaseAuthCombine-Community */; };
+		C570EB6C2CB1850200FF9932 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = C570EB6B2CB1850200FF9932 /* GoogleSignIn */; };
+		C570EB6E2CB1850200FF9932 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C570EB6D2CB1850200FF9932 /* GoogleSignInSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +39,22 @@
 		C570EB462CB153BE00FF9932 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C570EB662CB17A3A00FF9932 /* Exceptions for "Anivise" folder in "Anivise" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C570EB132CB1537C00FF9932 /* Anivise */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C570EB162CB1537C00FF9932 /* Anivise */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C570EB662CB17A3A00FF9932 /* Exceptions for "Anivise" folder in "Anivise" target */,
+			);
 			path = Anivise;
 			sourceTree = "<group>";
 		};
@@ -59,7 +75,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C570EB6E2CB1850200FF9932 /* GoogleSignInSwift in Frameworks */,
 				C570EB532CB15E1600FF9932 /* FirebaseAuth in Frameworks */,
+				C570EB6C2CB1850200FF9932 /* GoogleSignIn in Frameworks */,
+				C570EB692CB184A600FF9932 /* FirebaseAuthCombine-Community in Frameworks */,
 				C570EB552CB15E1600FF9932 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,6 +107,7 @@
 				C570EB162CB1537C00FF9932 /* Anivise */,
 				C570EB2C2CB1537E00FF9932 /* AniviseTests */,
 				C570EB362CB1537E00FF9932 /* AniviseUITests */,
+				C570EB672CB184A600FF9932 /* Frameworks */,
 				C570EB152CB1537C00FF9932 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,6 +120,13 @@
 				C570EB332CB1537E00FF9932 /* AniviseUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C570EB672CB184A600FF9932 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +151,9 @@
 			packageProductDependencies = (
 				C570EB522CB15E1600FF9932 /* FirebaseAuth */,
 				C570EB542CB15E1600FF9932 /* FirebaseFirestore */,
+				C570EB682CB184A600FF9932 /* FirebaseAuthCombine-Community */,
+				C570EB6B2CB1850200FF9932 /* GoogleSignIn */,
+				C570EB6D2CB1850200FF9932 /* GoogleSignInSwift */,
 			);
 			productName = Anivise;
 			productReference = C570EB142CB1537C00FF9932 /* Anivise.app */;
@@ -209,6 +239,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C570EB6A2CB1850200FF9932 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C570EB152CB1537C00FF9932 /* Products */;
@@ -415,6 +446,7 @@
 				DEVELOPMENT_TEAM = 4YQ66K5T88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Anivise/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -446,6 +478,7 @@
 				DEVELOPMENT_TEAM = 4YQ66K5T88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Anivise/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -588,6 +621,14 @@
 				minimumVersion = 11.3.0;
 			};
 		};
+		C570EB6A2CB1850200FF9932 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -600,6 +641,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		C570EB682CB184A600FF9932 /* FirebaseAuthCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
+		};
+		C570EB6B2CB1850200FF9932 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C570EB6A2CB1850200FF9932 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		C570EB6D2CB1850200FF9932 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C570EB6A2CB1850200FF9932 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
