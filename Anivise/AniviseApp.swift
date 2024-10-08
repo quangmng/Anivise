@@ -36,7 +36,7 @@ struct AniviseApp: App {
             // Handle Google Oauth URL
                 GIDSignIn.sharedInstance.handle(url)
             }
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

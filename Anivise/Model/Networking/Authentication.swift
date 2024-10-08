@@ -15,7 +15,7 @@ struct Authentication {
     func googleOauth() async throws {
         // google sign in
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            fatalError("no firebase clientID found")
+            fatalError("no Firebase clientID found")
         }
 
         // Create Google Sign In configuration object.
@@ -35,7 +35,7 @@ struct Authentication {
         )
         let user = result.user
         guard let idToken = user.idToken?.tokenString else {
-            throw AuthenticationError.runtimeError("Unexpected error occurred, please retry")
+            throw AuthenticationError.runtimeError("Unexpected error occurred, please try again")
         }
         
         //Firebase auth

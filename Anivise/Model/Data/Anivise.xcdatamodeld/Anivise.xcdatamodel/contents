@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="23H124" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AnimeItem" representedClassName="AnimeItem" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="isFavourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isSwipedRight" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="synopsis" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Genre" inverseName="animeItems" inverseEntity="Genre"/>
+    </entity>
+    <entity name="Genre" representedClassName="Genre" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="animeItems" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimeItem" inverseName="genres" inverseEntity="AnimeItem"/>
+    </entity>
+    <entity name="UserPreference" representedClassName="UserPreference" syncable="YES" codeGenerationType="class">
+        <attribute name="favouriteGenres" optional="YES" attributeType="String"/>
+        <attribute name="isOnboarded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+</model>

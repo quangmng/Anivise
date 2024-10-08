@@ -12,10 +12,12 @@ struct HomeView: View {
         NavigationStack{
             ZStack {
                 VStack{
-                    Text("For you:")
+                    Text("For you: (Shows recommended anime)")
+                    // add button to enter Tinder-style anime favourites view
+                    // create the AniviseView (tinder-style anime favourites view)
+                    // View currently favourites catalogue
                 }
             }
-            .navigationTitle("Anivise")
         }
     }
 }

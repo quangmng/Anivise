@@ -12,56 +12,62 @@ struct LoginView: View {
 
     var body: some View {
         VStack {
-            // Email and password fields
-            TextField("Enter your email", text: $viewModel.email)
-                .textInputAutocapitalization(.none)
-                .autocorrectionDisabled(true)
-                .keyboardType(.emailAddress)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                
-               
-
-            SecureField("Enter your password", text: $viewModel.password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
-            // Traditional email-password login button
-            Button(action: viewModel.signIn) {
-                HStack {
-                    Image(systemName: "person.fill")
-                    Text("Sign in")
-                }
-                .padding(10)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            .padding(.bottom, 8)
-            Text("OR")
-
-            // Google sign-in button
-            Button(action: viewModel.signInWithGoogle) {
-                HStack {
-                    Image("gIconSmol")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                    Text("Sign in with Google")
-                }
-                .padding(10)
-                .background(Color.green)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-
-            // Display error message, if any
-            if let errorMessage = viewModel.err {
-                Text(errorMessage)
-                    .foregroundColor(.red)
+            if viewModel.isLoading {
+                ProgressView("Signing in...")
                     .padding()
+            } else {
+                // Email and password fields
+                TextField("Enter your email", text: $viewModel.email)
+                    .textInputAutocapitalization(.none)
+                    .autocorrectionDisabled(true)
+                    .keyboardType(.emailAddress)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                
+                
+                SecureField("Enter your password", text: $viewModel.password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                // Traditional email-password login button
+                Button(){
+                    viewModel.signIn()
+                } label: {
+                        Image(systemName: "person.fill")
+                        Text("Sign in")
+                }
+                .buttonStyle(.borderedProminent)
+                .padding(.bottom, 8)
+                
+                Text("OR")
+                
+                // Google sign-in button
+                Button() {
+                    viewModel.signInWithGoogle()
+                } label: {
+
+                        Image("gIconSmol")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                        Text("Sign in with Google")
+                    
+                }
+                
+                .buttonStyle(.borderedProminent)
             }
         }
         .padding()
+        // Display error message, if any
+        .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
+                Alert(
+                    title: Text("Sign In Failed"),
+                    message: Text(viewModel.errorMessage ?? "Unknown error"),
+                    dismissButton: .default(Text("OK"), action: {
+                        viewModel.errorMessage = nil
+                    })
+                )
+        }
     }
 }
 
