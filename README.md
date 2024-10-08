@@ -1,10 +1,14 @@
 # **Anivise**
 ## anime.visualise
 ### *Your one-stop for exploring & discovering your favourite anime shows/movies* 
+<img src=https://github.com/user-attachments/assets/3b9541da-d4fa-47d9-b6a3-90fe4e8dd82f width="200" height="200">
 
-*insert app icon*
 
 ### Technology Stack:
+![Static Badge](https://img.shields.io/badge/Swift-orange?style=for-the-badge&logo=Swift&logoColor=FFFFFF) ![Static Badge](https://img.shields.io/badge/SwiftUI-blue?style=for-the-badge&logo=Swift&logoColor=FFFFFF) 
+![Static Badge](https://img.shields.io/badge/Firebase-red?style=for-the-badge&logo=Firebase&logoColor=FFFFFF) ![Static Badge](https://img.shields.io/badge/iOS-black?style=for-the-badge&logo=iOS&logoColor=FFFFFF)
+![Static Badge](https://img.shields.io/badge/macOS-black?style=for-the-badge&logo=macOS&logoColor=FFFFFF)
+
 - Swift/SwiftUI
 - Google Firebase
 
