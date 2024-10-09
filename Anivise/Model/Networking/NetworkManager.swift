@@ -13,25 +13,35 @@ class NetworkManager {
 
     private init() {} // Prevent others from creating instances
 
-    func fetchAnimeList(completion: @escaping (Result<[Anime], Error>) -> Void) {
-        guard let url = URL(string: "https://api.jikan.moe/v4/anime") else { return }
+    private let baseURL = "https://api.jikan.moe/v4"
+    
+    // Generic function to fetch anime list, allowing flexibility for different endpoints
+    func fetchAnimeList(endpoint: String = "/anime", completion: @escaping (Result<[Anime], Error>) -> Void) {
+        // Construct the full URL
+        guard let url = URL(string: "\(baseURL)\(endpoint)") else {
+            completion(.failure(NetworkError.invalidURL))
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
+            // Check for network error
             if let error = error {
                 completion(.failure(error))
                 return
             }
             
+            // Check for missing data
             guard let data = data else {
-                completion(.failure(NSError(domain: "No data", code: 0, userInfo: nil)))
+                completion(.failure(NetworkError.noData))
                 return
             }
             
+            // Decode JSON response
             do {
                 let decodedResponse = try JSONDecoder().decode(AnimeResponse.self, from: data)
                 completion(.success(decodedResponse.data))
             } catch {
-                completion(.failure(error))
+                completion(.failure(NetworkError.decodingError(error)))
             }
         }.resume()
     }

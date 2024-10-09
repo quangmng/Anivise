@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,7 +40,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C570EB662CB17A3A00FF9932 /* Exceptions for "Anivise" folder in "Anivise" target */ = {
+		C570EB662CB17A3A00FF9932 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -50,24 +50,9 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C570EB162CB1537C00FF9932 /* Anivise */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				C570EB662CB17A3A00FF9932 /* Exceptions for "Anivise" folder in "Anivise" target */,
-			);
-			path = Anivise;
-			sourceTree = "<group>";
-		};
-		C570EB2C2CB1537E00FF9932 /* AniviseTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AniviseTests;
-			sourceTree = "<group>";
-		};
-		C570EB362CB1537E00FF9932 /* AniviseUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AniviseUITests;
-			sourceTree = "<group>";
-		};
+		C570EB162CB1537C00FF9932 /* Anivise */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C570EB662CB17A3A00FF9932 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Anivise; sourceTree = "<group>"; };
+		C570EB2C2CB1537E00FF9932 /* AniviseTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AniviseTests; sourceTree = "<group>"; };
+		C570EB362CB1537E00FF9932 /* AniviseUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AniviseUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +214,7 @@
 				};
 			};
 			buildConfigurationList = C570EB0F2CB1537C00FF9932 /* Build configuration list for PBXProject "Anivise" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -241,7 +227,6 @@
 				C570EB512CB15E1600FF9932 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C570EB6A2CB1850200FF9932 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
-			preferredProjectObjectVersion = 77;
 			productRefGroup = C570EB152CB1537C00FF9932 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

@@ -7,33 +7,12 @@
 
 import FirebaseAuth
 import FirebaseFirestore
+import CoreData
 
 class PreferencesViewModel: ObservableObject {
     @Published var userLoggedIn = Auth.auth().currentUser != nil
     @Published var userEmail: String? = Auth.auth().currentUser?.email
-    @Published var selectedGenres: [String] = []
-    
-    private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
-
-    // Firebase Authentication: Set up listener for auth state changes
-    func startAuthListener() {
-        authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] auth, user in
-            if let user = user {
-                self?.userLoggedIn = true
-                self?.userEmail = user.email
-                self?.loadUserPreferencesFromCloud(userID: user.uid)
-            } else {
-                self?.userLoggedIn = false
-                self?.userEmail = nil
-            }
-        }
-    }
-
-    func stopAuthListener() {
-        if let handle = authStateDidChangeListenerHandle {
-            Auth.auth().removeStateDidChangeListener(handle)
-        }
-    }
+    @Published var selectedGenres: [String] = [] // Genres loaded from Core Data
 
     // Sign out the user
     func signOut() {
@@ -50,9 +29,43 @@ class PreferencesViewModel: ObservableObject {
     func loadUserPreferencesFromCloud(userID: String) {
         FirestoreManager().fetchFavourites(userID: userID) { [weak self] genres, error in
             if let error = error {
-                print("Failed to load favourites from Firestore: \(error)")
+                print("Failed to load favourites from Cloud: \(error)")
             } else {
                 self?.selectedGenres = genres ?? []
+            }
+        }
+    }
+
+    // Fetch genres from Core Data
+    func loadGenresFromCoreData() -> [String] {
+        let context = PersistenceController.shared.container.viewContext
+        let request: NSFetchRequest<UserPreference> = UserPreference.fetchRequest()
+
+        do {
+            if let userPreference = try context.fetch(request).first {
+                return userPreference.favouriteGenres?.components(separatedBy: ",") ?? []
+            } else {
+                return []
+            }
+        } catch {
+            print("Failed to fetch genres from Core Data: \(error)")
+            return []
+        }
+    }
+
+    // Save genres to Firestore
+    func saveGenresToFirestore() {
+        guard let user = Auth.auth().currentUser else { return }
+        let userID = user.uid
+
+        // Fetch genres from Core Data
+        let genresToSave = loadGenresFromCoreData()
+
+        FirestoreManager().saveFavourites(userID: userID, favouriteGenres: genresToSave) { error in
+            if let error = error {
+                print("Failed to save genres to Cloud: \(error)")
+            } else {
+                print("Successfully saved genres to Cloud!")
             }
         }
     }

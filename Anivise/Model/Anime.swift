@@ -1,5 +1,5 @@
 //
-//  AnimeModel.swift
+//  Anime.swift
 //  Anivise
 //
 //  Created by Quang Minh Nguyen on 7/10/2024.
