@@ -140,8 +140,9 @@ struct PreferencesView: View {
         isSaving = true
         let genresToSave = viewModel.loadGenresFromCoreData() // Fetch genres from Core Data
 
+        var timeoutWorkItem: DispatchWorkItem?
         // Create a dispatch work item for the timeout
-        let timeoutWorkItem = DispatchWorkItem {
+        timeoutWorkItem = DispatchWorkItem {
             // If the save hasn't completed in 15 seconds, show the timeout alert
             isSaving = false
             alertMessage = "Timed Out in 15 seconds. Either the server is down or you are not connected to the internet. Try again later."
@@ -149,12 +150,15 @@ struct PreferencesView: View {
         }
 
         // Schedule the timeout work item to run in 15 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15, execute: timeoutWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15, execute: timeoutWorkItem!)
         
         FirestoreManager().saveFavourites(userID: userID, favouriteGenres: genresToSave) { error in
             // Stop showing the progress view
             isSaving = false
 
+            // Cancel the timeout if the operation completes in less than 15 seconds
+            timeoutWorkItem?.cancel()
+            
             if let error = error {
                 // Show failure message
                 alertMessage = "Failed to save genres to Cloud: \(error.localizedDescription)"

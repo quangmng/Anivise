@@ -11,7 +11,7 @@ struct OnboardingView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject private var viewModel = OnboardingViewModel()
 
-    let allGenres = ["Action", "Romance", "Comedy", "Fantasy", "Drama"]
+    let allGenres = ["Action", "Romance", "Comedy", "Fantasy", "Drama", "Slice of Life"]
 
     var body: some View {
         NavigationView {

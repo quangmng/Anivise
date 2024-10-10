@@ -14,7 +14,7 @@ struct Anime: Codable, Identifiable {
     let title: String
     let synopsis: String
     let images: AnimeImages
-    let genres: [AnimeGenre]? // capturing genres
+    let genres: [AnimeGenre]? // Capturing genres
 
     enum CodingKeys: String, CodingKey {
         case id = "mal_id"
