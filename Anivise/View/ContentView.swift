@@ -17,7 +17,20 @@ struct ContentView: View {
                 showOnboarding = !PreferencesHelper.isOnboardingCompleted()
             }
             .sheet(isPresented: $showOnboarding) {
-                OnboardingView()
+                NavigationStack {
+                    OnboardingView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button() {
+                                showOnboarding = false // Close sheet manually
+                            } label: {
+                                CloseButton()
+                                    .frame(width: 36, height: 36)
+                                    .padding(.top)
+                            }
+                        }
+                    }
+                }
             }
     }
 }

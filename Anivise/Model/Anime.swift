@@ -39,7 +39,7 @@ struct Anime: Codable, Identifiable {
         // Decode genres and map them to genreIds
         let genres = try container.decodeIfPresent([AnimeGenre].self, forKey: .genres)
         self.genres = genres
-        self.genreIds = genres?.map { $0.mal_id } ?? [] // Map genres to genreIds
+        self.genreIds = genres?.map { $0.id } ?? [] // Map genres to genreIds
     }
 }
 
@@ -62,6 +62,12 @@ struct AnimeGenreResponse: Codable {
 }
 
 struct AnimeGenre: Codable {
-    let mal_id: Int
+    let id: Int
     let name: String
+    var isFavourited: Bool = false
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "mal_id"
+        case name
+    }
 }

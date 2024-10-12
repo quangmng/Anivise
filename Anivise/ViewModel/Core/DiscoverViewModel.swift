@@ -17,7 +17,7 @@ class DiscoverViewModel: ObservableObject {
 
     func fetchAnimeList() {
         isLoading = true
-        NetworkManager.shared.fetchAnimeList { [weak self] result in
+        NetworkManager.shared.fetchDiscoverAnimeList { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoading = false
                 switch result {

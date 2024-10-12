@@ -1,5 +1,5 @@
 //
-//  OnboardingView.swift
+//  ReOnboardView.swift
 //  Anivise
 //
 //  Created by Quang Minh Nguyen on 12/10/2024.
@@ -7,10 +7,8 @@
 
 import SwiftUI
 
-struct OnboardingView: View {
+struct ReOnboardView: View {
     @State private var selection = 0
-    @State private var showGenreSelection = false
-    
     var body: some View {
         ZStack {
             // TabView for multiple onboarding steps
@@ -39,7 +37,8 @@ struct OnboardingView: View {
                 VStack {
                     Spacer()
                     Button(action: {
-                        showGenreSelection.toggle()
+                        // Dismiss the view altogether
+                        
                     }) {
                         Text("Get Started")
                             .foregroundColor(.white)
@@ -49,50 +48,13 @@ struct OnboardingView: View {
                             .cornerRadius(25)
                     }
                     .padding()
-                    .fullScreenCover(isPresented: $showGenreSelection, content: {
-                        GenreSelectView()
-                    })
                 }
             }
         }
     }
 }
 
-struct OnboardingStepView: View {
-    let title: String
-    let description: String
-    
-    @State private var animationCount = 0
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            if title == "Discover" {
-                Image(systemName: "film.stack.fill")
-                    .symbolEffect(.bounce.up.byLayer, value: animationCount)
-                    .font(.system(size: 50))
-            } else if title == "Track" {
-                Image(systemName: "list.star")
-                    .symbolEffect(.bounce.up.byLayer, value: animationCount)
-                        .font(.system(size: 50))
-            } else if title == "Recommend" {
-                Image(systemName: "star.bubble.fill")
-                    .symbolEffect(.bounce.up.byLayer, value: animationCount)
-                    .font(.system(size: 50))
-            }
-            
-            Text(title)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
-            Text(description)
-                .font(.body)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-        }
-        .padding()
-    }
-}
 
 #Preview {
-    OnboardingView()
+    ReOnboardView()
 }

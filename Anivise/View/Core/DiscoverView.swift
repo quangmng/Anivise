@@ -19,8 +19,7 @@ struct DiscoverView: View {
             } else {
                 List(viewModel.filteredAnimeList) { anime in
                     HStack {
-                        AsyncImage(url: URL(string: anime.images.jpg.imageUrl)) { image in
-                            image.resizable()
+                        AsyncImage(url: URL(string: anime.images.jpg.imageUrl)) { image in image.resizable()
                         } placeholder: {
                             ProgressView()
                         }

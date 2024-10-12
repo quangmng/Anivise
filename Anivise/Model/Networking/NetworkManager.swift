@@ -46,7 +46,7 @@ class NetworkManager {
                 
                 // Store genres in the centralized genreStore
                 for genre in response.data {
-                    self.genreStore[genre.mal_id] = genre
+                    self.genreStore[genre.id] = genre
                 }
                 
                 completion(.success(response.data))
@@ -84,7 +84,7 @@ class NetworkManager {
                 
                 // Store genres in the centralized genreStore
                 for genre in response.data {
-                    self.genreStore[genre.mal_id] = genre
+                    self.genreStore[genre.id] = genre
                 }
                 
                 completion(.success(response.data))
@@ -134,10 +134,10 @@ class NetworkManager {
             }
             
             // Create a set of explicit genre IDs for fast filtering
-            let explicitGenreIds = Set(explicitGenres.map { $0.mal_id })
+            let explicitGenreIds = Set(explicitGenres.map { $0.id })
             
             // Filter out any genres whose IDs are in the explicitGenreIds set
-            let filteredGenres = allGenres.filter { !explicitGenreIds.contains($0.mal_id) }
+            let filteredGenres = allGenres.filter { !explicitGenreIds.contains($0.id) }
             
             completion(.success(filteredGenres))
         }
@@ -145,7 +145,7 @@ class NetworkManager {
 
     
     // Generic function to fetch anime list, allowing flexibility for different endpoints
-    func fetchAnimeList(endpoint: String = "/anime", completion: @escaping (Result<[Anime], Error>) -> Void) {
+    func fetchDiscoverAnimeList(endpoint: String = "/top/anime", completion: @escaping (Result<[Anime], Error>) -> Void) {
         // Construct the full URL
         guard let url = URL(string: "\(baseURL)\(endpoint)?sfw=true") else {
             completion(.failure(NetworkError.invalidURL))
