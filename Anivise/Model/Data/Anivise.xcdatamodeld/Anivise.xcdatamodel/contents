@@ -10,6 +10,8 @@
         <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Genre" inverseName="animeItems" inverseEntity="Genre"/>
     </entity>
     <entity name="Genre" representedClassName="Genre" syncable="YES" codeGenerationType="class">
+        <attribute name="isFavourited" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="malId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="animeItems" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AnimeItem" inverseName="genres" inverseEntity="AnimeItem"/>
     </entity>
