@@ -38,7 +38,7 @@ struct MainView: View {
                             }
                         }
                     }
-                    
+                    .tabViewStyle(.sidebarAdaptable)
                 } else {
                     // Fallback for iOS 17 and earlier using .tabItem
                     TabView {

@@ -42,7 +42,9 @@ struct DiscoverView: View {
                         }
                         .padding()
                     }
-                    
+                    .refreshable {
+                        viewModel.fetchAnimeList()
+                    }
                     .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Looking for an anime?")
                     .onSubmit (of: .search){
                         viewModel.filterAnimeList() // Activate search when user taps "return" on keyboard
@@ -52,14 +54,15 @@ struct DiscoverView: View {
                 }
             }
         }
+        // Temporal onAppear. In future this will only fetch when app opens or manually refreshed, not when this view is triggered.
         .onAppear {
             viewModel.fetchAnimeList()
         }
     }
 
     func saveToFavorites(anime: Anime) {
-        let genreNames = anime.genres?.map { $0.name } ?? [] // Safely unwrap genres
-        PersistenceController.shared.saveAnimeItem(anime: anime, genres: genreNames)
+//        let genreNames = anime.genres?.map { $0.name } ?? [] // Safely unwrap genres
+//        PersistenceController.shared.saveAnimeItem(anime: anime, genres: genreNames)
     }
 }
 

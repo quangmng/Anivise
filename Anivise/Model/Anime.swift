@@ -5,6 +5,7 @@
 //  Created by Quang Minh Nguyen on 7/10/2024.
 //
 
+// MARK: - Anime Items fetching
 struct AnimeResponse: Codable {
     let data: [Anime]
 }
@@ -14,14 +15,31 @@ struct Anime: Codable, Identifiable {
     let title: String
     let synopsis: String
     let images: AnimeImages
-    let genres: [AnimeGenre]? // Capturing genres
+    let genreIds: [Int] // Capturing genre IDs for each anime
+    let genres: [AnimeGenre]?
 
     enum CodingKeys: String, CodingKey {
         case id = "mal_id"
         case title
         case synopsis
         case images
+        //case genreIds = "genres" // Map genres from JSON to genreIDs for SSOT
         case genres
+    }
+    
+    // Custom decoder to map genres to genreIds
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.synopsis = try container.decode(String.self, forKey: .synopsis)
+        self.images = try container.decode(AnimeImages.self, forKey: .images)
+        
+        // Decode genres and map them to genreIds
+        let genres = try container.decodeIfPresent([AnimeGenre].self, forKey: .genres)
+        self.genres = genres
+        self.genreIds = genres?.map { $0.mal_id } ?? [] // Map genres to genreIds
     }
 }
 
@@ -37,6 +55,13 @@ struct AnimeImageDetails: Codable {
     }
 }
 
+// MARK: - Anime Genre fetching
+
+struct AnimeGenreResponse: Codable {
+    let data: [AnimeGenre]
+}
+
 struct AnimeGenre: Codable {
+    let mal_id: Int
     let name: String
 }

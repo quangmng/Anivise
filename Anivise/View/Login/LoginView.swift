@@ -26,11 +26,13 @@ struct LoginView: View {
                 
                 
                 
+                
                 SecureField("Enter your password", text: $viewModel.password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
                 // Traditional email-password login button
+                    .padding(.bottom, 8)
                 Button(){
                     viewModel.signIn()
                 } label: {
@@ -49,12 +51,13 @@ struct LoginView: View {
 
                         Image("gIconSmol")
                             .resizable()
-                            .frame(width: 25, height: 25)
+                            .frame(width: 20, height: 20)
                         Text("Sign in with Google")
+                        .foregroundStyle(.gLoginTxt)
                     
                 }
-                
                 .buttonStyle(.borderedProminent)
+                .tint(.gLoginBtn)
             }
         }
         .padding()

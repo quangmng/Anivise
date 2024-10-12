@@ -14,6 +14,7 @@ class PreferencesViewModel: ObservableObject {
     @Published var userEmail: String? = Auth.auth().currentUser?.email
     @Published var selectedGenres: [String] = [] // Genres loaded from Core Data
 
+    
     // Sign out the user
     func signOut() {
         do {

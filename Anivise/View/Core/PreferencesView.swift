@@ -13,8 +13,8 @@ struct PreferencesView: View {
     @State private var userLoggedIn = (Auth.auth().currentUser != nil)
     @State private var showLogin = false
     @State private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
-    @State private var showOnboarding = false
-    
+    @State private var showGenre = false
+    @State private var showOnboard = false
     // Add the states to manage saving progress and alerts
     @State private var isSaving = false
     @State private var showAlert = false
@@ -22,10 +22,17 @@ struct PreferencesView: View {
 
     var body: some View {
         List {
-            Section("Appearance") {
-                Text("Coming Soon")
+            Section("Personalise") {
+                Button(){
+                    showGenre.toggle()
+                } label: {
+                    Text("Reopen Genre Selection")
+                }
             }
-
+            .sheet(isPresented: $showGenre) {
+                GenreSelectView()
+            }
+            
             if userLoggedIn {
                 Section("Cloud Sync") {
                     // Show the ProgressView or the Save Button based on `isSaving` state
@@ -37,11 +44,23 @@ struct PreferencesView: View {
                             
                         }
                     } else {
-                        Button(action: {
+                        Button(){
                             saveGenresToFirestore() // Handle save in this view
-                        }) {
-                            Text("Save Genres to Cloud")
-                                .foregroundColor(.blue)
+                        } label:{
+                            HStack {
+                                Image(systemName: "icloud.and.arrow.up")
+                                    .foregroundColor(.blue)
+                                Text("Save Genres to Cloud")
+                            }
+                        }
+                        Button() {
+                            
+                        } label: {
+                            HStack {
+                                Image(systemName: "icloud.and.arrow.down")
+                                    .foregroundColor(.blue)
+                                Text("Restore Cloud preferences")
+                            }
                         }
                     }
                 }
@@ -96,11 +115,11 @@ struct PreferencesView: View {
 
             Section("Onboarding") {
                 Button {
-                    showOnboarding.toggle()
+                    showGenre.toggle()
                 } label: {
                     Text("Show Onboarding")
                 }
-                .sheet(isPresented: $showOnboarding) {
+                .sheet(isPresented: $showOnboard) {
                     OnboardingView()
                 }
             }

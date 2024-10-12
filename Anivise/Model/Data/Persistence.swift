@@ -57,9 +57,22 @@ struct PersistenceController {
         do {
             try context.save()
         } catch {
-            print("Failed to save anime item: \(error.localizedDescription)")
+            print("Failed to save anime to Library: \(error.localizedDescription)")
         }
     }
+    
+    func saveUserPreferences(genres: String) {
+            let context = container.viewContext
+            let userPreference = UserPreference(context: context)
+            userPreference.favouriteGenres = genres
+            userPreference.isOnboarded = true
+
+            do {
+                try context.save()
+            } catch {
+                print("Failed to save user preferences: \(error.localizedDescription)")
+            }
+        }
     
     // MARK: - Fetch All Anime Items
     func fetchAllAnimeItems() -> [AnimeItem] {
