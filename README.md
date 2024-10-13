@@ -44,7 +44,7 @@ Embark on the world of anime tailored to your tastes with Anivise. Swipe through
 ![IMG_9574](https://github.com/user-attachments/assets/bbe3e624-2f25-4b01-8448-52708addcd6e)
 ![IMG_9573](https://github.com/user-attachments/assets/526e54f6-5fd8-4c43-b49d-c03115259727)
 ![IMG_9572](https://github.com/user-attachments/assets/149cfa69-dea1-4b5f-a0bd-00c689ffef47)
-[IMG_9575](https://github.com/user-attachments/assets/6576e060-5f90-4bdc-96da-5e69e5a1d774) 
+![IMG_9575](https://github.com/user-attachments/assets/6576e060-5f90-4bdc-96da-5e69e5a1d774) 
 ![IMG_9578](https://github.com/user-attachments/assets/ea71f43b-b043-4ddc-aea8-3fe030044364)
 
 
