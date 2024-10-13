@@ -4,6 +4,7 @@
 <img src=https://github.com/user-attachments/assets/3b9541da-d4fa-47d9-b6a3-90fe4e8dd82f width="200" height="200">
 
 
+
 ### Technology Stack:
 ![Static Badge](https://img.shields.io/badge/Swift-orange?style=for-the-badge&logo=Swift&logoColor=FFFFFF) ![Static Badge](https://img.shields.io/badge/SwiftUI-blue?style=for-the-badge&logo=Swift&logoColor=FFFFFF) 
 ![Static Badge](https://img.shields.io/badge/Firebase-red?style=for-the-badge&logo=Firebase&logoColor=FFFFFF) ![Static Badge](https://img.shields.io/badge/iOS-black?style=for-the-badge&logo=iOS&logoColor=FFFFFF)
@@ -38,8 +39,14 @@ Embark on the world of anime tailored to your tastes with Anivise. Swipe through
 <br> Craving for more of your favourites? Fear not, they are right at your fingertips!
 
 
-### App Screenshots
-*Max 5 screenshots*
+### App Screenshots!
+
+![IMG_9574](https://github.com/user-attachments/assets/bbe3e624-2f25-4b01-8448-52708addcd6e)
+![IMG_9573](https://github.com/user-attachments/assets/526e54f6-5fd8-4c43-b49d-c03115259727)
+![IMG_9572](https://github.com/user-attachments/assets/149cfa69-dea1-4b5f-a0bd-00c689ffef47)
+[IMG_9575](https://github.com/user-attachments/assets/6576e060-5f90-4bdc-96da-5e69e5a1d774) 
+![IMG_9578](https://github.com/user-attachments/assets/ea71f43b-b043-4ddc-aea8-3fe030044364)
+
 
 ## For Advanced iOS Assignment Reference Only
 ### Error handling:
