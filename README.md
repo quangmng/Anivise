@@ -30,8 +30,37 @@ https://github.com/google/GoogleSignIn-iOS.git
 Embark on the world of anime tailored to your tastes with Anivise. Swipe through personalised recommendations, discover new genres, and save your favourites to watch later. Set your preferences, dive into detailed anime info, and sync across devices with seamless cloud support. Whether you're a seasoned Otaku or just getting into anime, Anivise transforms your experience in search of your next binge-worthy anime!
 
 ### Main Features
-*revised features*
+- Discover: Explore a world of anime tailored to your preferences! 
+<br> Adding genres to your pallete to let the great taste flows through your entertainment needs!
+- Track: Keep track of your favourite Anime shows and movies. 
+<br> Viewing your saved items at one location couldn't be any easier.
+- Recommend: Receive recommendations based on your taste! 
+<br> Craving for more of your favourites? Fear not, they are right at your fingertips!
+
 
 ### App Screenshots
-*Max 5-6 screenshots*
+*Max 5 screenshots*
+
+## For Advanced iOS Assignment Reference Only
+### Error handling:
+- Genre Selection:
+<br> Issue: User selected genres, but some might not be saved properly
+<br> Solution: Adding debug print-to-console messages that checks which genres user saved to favourites and cross-compare with the output. 
+- Signing in/Authentication:
+<br> Issue(s): User may mistype email, password or attempt to login multiple times quickly -> failed login attempts
+<br> Solution: Provide alert message with detailed errors of which type of sign in errors it was (e.g.:mistyped email, passwords, blank fields, brute forcing).
+- Cloud Syncing:
+<br> Issue: User has not favourited any genres (selecting "skip for now") during Onboarding flow & syncing to cloud when signed in. Blank genre -> empty record in Firestore -> could cause genreList corruption.
+<br> Solution: Provide alert message that user has not favourited a genre for cloud saving. 
+
+### Instructions:
+- Complete the onboarding process & select genres
+- Save changes for genre selection view & browse through Home. Tap into each anime to show detailed info.
+- Visit the Discover page to look for more Anime. Tap into each anime to show detailed info.
+- Sign in through the "Preferences" tab using either Sign in with Google (requires `GoogleService-Info.plist` file and Google account) or using the following credentials if not working:
+```
+ email: janedoe@quang.au
+ pass: JaneDoe1
+```
+- Backup and restore genres through the available options after Login.
 
