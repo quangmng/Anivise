@@ -144,8 +144,47 @@ class NetworkManager {
     }
 
     
-    // Generic function to fetch anime list, allowing flexibility for different endpoints
+    // Function to fetch top 25 anime list
     func fetchDiscoverAnimeList(endpoint: String = "/top/anime", completion: @escaping (Result<[Anime], Error>) -> Void) {
+        // Construct the full URL
+        guard let url = URL(string: "\(baseURL)\(endpoint)?sfw=true") else {
+            completion(.failure(NetworkError.invalidURL))
+            return
+        }
+        
+        print("Fetching from URL: \(url.absoluteString)")
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Network request failed: \(error.localizedDescription)")
+                completion(.failure(NetworkError.unknown))
+                return
+            }
+            
+            // Check for missing data
+            guard let data = data else {
+                print("No data returned from Server. Is it down?")
+                completion(.failure(NetworkError.noData))
+                return
+            }
+            
+            do {
+                // Decode the response directly into AnimeResponse
+                let decodedResponse = try JSONDecoder().decode(AnimeResponse.self, from: data)
+                
+                // Custom initialiser handles genreIds from Anime model
+                let animeWithGenreIds = decodedResponse.data
+
+                completion(.success(animeWithGenreIds))
+            } catch {
+                print("Decoding error: \(error)")
+                completion(.failure(NetworkError.decodingError(error)))
+            }
+        }.resume()
+    }
+    
+    // Function to fetch all anime list
+    func fetchAllAnime(endpoint: String = "/anime", completion: @escaping (Result<[Anime], Error>) -> Void) {
         // Construct the full URL
         guard let url = URL(string: "\(baseURL)\(endpoint)?sfw=true") else {
             completion(.failure(NetworkError.invalidURL))

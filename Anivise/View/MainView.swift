@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MainView: View {
     @State private var isTabViewHidden = false
-
+    @State private var selectedAnime: Anime? = nil
+    
     var body: some View {
             if !isTabViewHidden {
                 if #available(iOS 18.0, *) {
@@ -18,7 +19,7 @@ struct MainView: View {
                         Tab("Home", systemImage: "house") {
                             NavigationStack {
                                 HomeView()
-                                    .navigationTitle("Home")
+                                    .navigationBarTitle("Home")
                             }
                             
                         }
@@ -26,25 +27,32 @@ struct MainView: View {
                         Tab("Discover", systemImage: "film.stack") {
                             NavigationStack {
                                 DiscoverView()
-                                
-                                    .navigationTitle("Discover")
+                                    .navigationBarTitle("Discover")
+                                    .toolbarBackground(.visible, for: .navigationBar)
                             }
                         }
 
                         Tab("Preferences", systemImage: "gear") {
                             NavigationStack {
                                 PreferencesView()
-                                    .navigationTitle("Preferences")
+                                    .navigationBarTitle("Preferences")
                             }
                         }
                     }
                     .tabViewStyle(.sidebarAdaptable)
+                    .fullScreenCover(item: $selectedAnime) {
+                        anime in AnimeDetailView(anime: anime)
+                            .onDisappear{
+                                isTabViewHidden = false
+                            }
+                    }
                 } else {
                     // Fallback for iOS 17 and earlier using .tabItem
                     TabView {
                         NavigationStack {
                             HomeView()
-                                .navigationTitle("Home")
+                                .navigationBarTitle("Home")
+                                .toolbarBackground(.visible, for: .navigationBar)
                         }
                         .tabItem {
                             Label("Home", systemImage: "house")
@@ -52,7 +60,7 @@ struct MainView: View {
 
                         NavigationStack {
                             DiscoverView()
-                                .navigationTitle("Discover")
+                                .navigationBarTitle("Discover")
                         }
                         .tabItem {
                             Label("Discover", systemImage: "film.stack")
@@ -60,12 +68,18 @@ struct MainView: View {
 
                         NavigationStack {
                             PreferencesView()
-                                .navigationTitle("Preferences")
+                                .navigationBarTitle("Preferences")
                         }
                         .tabItem {
                             Label("Preferences", systemImage: "gear")
                         }
                 }
+                    .fullScreenCover(item: $selectedAnime) {
+                        anime in AnimeDetailView(anime: anime)
+                            .onDisappear{
+                                isTabViewHidden = false
+                            }
+                    }
             }
         }
     }

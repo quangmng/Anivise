@@ -24,9 +24,6 @@ struct LoginView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
-                
-                
-                
                 SecureField("Enter your password", text: $viewModel.password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
@@ -61,6 +58,9 @@ struct LoginView: View {
             }
         }
         .padding()
+        .onSubmit {
+            viewModel.signIn()
+        }
         // Display error message, if any
         .alert(isPresented: .constant(viewModel.errorMessage != nil)) {
                 Alert(

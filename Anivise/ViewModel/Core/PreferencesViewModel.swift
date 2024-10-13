@@ -12,7 +12,6 @@ import CoreData
 class PreferencesViewModel: ObservableObject {
     @Published var userLoggedIn = Auth.auth().currentUser != nil
     @Published var userEmail: String? = Auth.auth().currentUser?.email
-    @Published var selectedGenres: [String] = [] // Genres loaded from Core Data
     // Add the states to manage saving progress and alerts
     @Published var isSaving = false
     @Published var isRestoring = false
@@ -39,13 +38,13 @@ class PreferencesViewModel: ObservableObject {
         // trigger ProgressView
         isSaving = true
         
-        // Convert the selected genres only (based on isFavourited)
-        let favouriteGenres = genreViewModel.loadGenresFromCoreData()
-            .filter { $0.isFavourited == true } // Only genres marked as favourite
-            .compactMap { $0.name } // Ensure we only get the names
+        // Reload the favouritedGenres to ensure it's up-to-date
+        genreViewModel.loadUserGenres()
+        print("Firestore genres to upload: \(genreViewModel.favouritedGenres)")
+        
         
         // Ensure there are no empty genre names
-        if favouriteGenres.isEmpty {
+        if genreViewModel.favouritedGenres.isEmpty {
             self.alertMessage = "No favourite genres selected to save."
             self.showAlert = true
             self.isSaving = false
@@ -63,7 +62,7 @@ class PreferencesViewModel: ObservableObject {
         // Timeout if operation takes more than 10 seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: timeoutWorkItem!)
 
-        FirestoreManager().saveFavourites(userID: userID, favouriteGenres: favouriteGenres) { error in
+        FirestoreManager().saveFavourites(userID: userID, favouriteGenres: genreViewModel.favouritedGenres) { error in
             self.isSaving = false
             // Stop the timeout countdown
             timeoutWorkItem?.cancel()
@@ -87,25 +86,43 @@ class PreferencesViewModel: ObservableObject {
         var timeoutWorkItem: DispatchWorkItem?
         timeoutWorkItem = DispatchWorkItem {
             self.isRestoring = false
-            self.alertMessage = "Timed out in 10 seconds. Server down or no internet."
+            self.alertMessage = "Timed out in 10 seconds. Either Server down or no internet connection."
             self.showAlert = true
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 10, execute: timeoutWorkItem!)
 
-        FirestoreManager().fetchFavourites(userID: userID) { [weak self] genreNames, error in
+        FirestoreManager().fetchFavourites(userID: userID) { [weak self] favouriteGenres, error in
             self?.isRestoring = false
             timeoutWorkItem?.cancel()
 
             if let error = error {
                 self?.alertMessage = "Failed to restore genres: \(error.localizedDescription)"
                 self?.showAlert = true
-            } else if let genreNames = genreNames {
+            } else if let favouriteGenres = favouriteGenres {
+                
+                self?.genreViewModel.loadGenres()
+                
                 // Update Core Data with restored genres (mark as favourited)
-                self?.genreViewModel.updateFavouritedGenres(restoredGenres: genreNames)
+                self?.genreViewModel.updateCloudFavouritedGenres(restoredGenres: favouriteGenres)
+                print("Fetched favourite genres from Firestore: \(favouriteGenres)")
+                // IMPORTANT: Ensure 'allGenres' is populated here before updating
+                if self?.genreViewModel.allGenres.isEmpty == true {
+                    // Fetch from Core Data or API if not already loaded
+                    self?.genreViewModel.loadGenres()
+                }
+                
+                // Update Core Data with restored genres (mark as favourited)
+                self?.genreViewModel.updateCloudFavouritedGenres(restoredGenres: favouriteGenres)
                 self?.alertMessage = "Successfully restored genres from Cloud!"
                 self?.showAlert = true
+                
+                
             }
+            else {
+                        self?.alertMessage = "No favorite genres found to restore."
+                        self?.showAlert = true
+                    }
         }
     }
 }

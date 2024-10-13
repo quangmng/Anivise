@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 class GenreViewModel: ObservableObject {
-    @Published var selectedGenres: [String] = []
+    @Published var favouritedGenres: [String] = []
     @Published var allGenres: [AnimeGenre] = []
     
     private var context: NSManagedObjectContext {
@@ -31,36 +31,33 @@ class GenreViewModel: ObservableObject {
     // Load user favourited genres from Core Data
     func loadUserGenres() {
         let request: NSFetchRequest<UserPreference> = UserPreference.fetchRequest()
-
+        
         do {
             if let userPreference = try context.fetch(request).first {
-                self.selectedGenres = userPreference.favouriteGenres?.components(separatedBy: ",") ?? []
+                self.favouritedGenres = userPreference.favouriteGenres?.components(separatedBy: ",") ?? []
+                print("Locally fetched Favourite genres: \(favouritedGenres)")
             }
         } catch {
-            print("Failed to fetch preferences: \(error)")
+            print("Failed to fetch genres: \(error)")
         }
     }
-    
-    // Load favourited genres (to be used in saving to Firestore)
-    func loadFavouritedGenres() -> [String] {
-        let favouritedGenres = allGenres.filter { $0.isFavourited == true }
-        return favouritedGenres.map { $0.name }
-    }
 
-    // Save selected genres to Core Data
+    // Save favourited genres to Core Data
     func saveUserGenres() {
         let request: NSFetchRequest<UserPreference> = UserPreference.fetchRequest()
 
         do {
             // Fetch existing preferences or create a new one
             let userPreference = try context.fetch(request).first ?? UserPreference(context: context)
-            userPreference.favouriteGenres = selectedGenres.joined(separator: ",")
+            userPreference.favouriteGenres = favouritedGenres.joined(separator: ",")
 
             try context.save()
             PreferencesHelper.saveOnboardingStatus(true) // Mark onboarding as complete
         } catch {
             print("Failed to save preferences: \(error)")
         }
+        
+        print("Locally updated Favourite genres: \(favouritedGenres)")
     }
 
     // Function to toggle genre favourite selection
@@ -69,24 +66,23 @@ class GenreViewModel: ObservableObject {
             allGenres[index].isFavourited.toggle()
             let genreName = allGenres[index].name
             
-            // Update the selectedGenres list based on the toggle action
+            // Update the favouritedGenres list based on the toggle action
             if allGenres[index].isFavourited == true {
-                selectedGenres.append(genreName)
+                favouritedGenres.append(genreName)
             } else {
-                selectedGenres.removeAll { $0 == genreName }
+                favouritedGenres.removeAll { $0 == genreName }
             }
         }
     }
     
     
     // Update the isFavourited flag for genres that are in the restored list
-    private func updateFavouriteGenres(restoredGenres: [String]) {
-        self.allGenres = self.allGenres.map { genre in
-            var updatedGenre = genre
-            updatedGenre.isFavourited = restoredGenres.contains(genre.name) // Check if this genre was restored
-            return updatedGenre
+    func updateIsFavouritedStatus(restoredGenres: [String]) {
+        for i in 0..<allGenres.count {
+            // Update only the isFavourited property if the genre is found in restoredGenres
+            allGenres[i].isFavourited = restoredGenres.contains(allGenres[i].name)
         }
-        saveGenresToCoreData(genres: allGenres)
+        print("Favourite genres: \(favouritedGenres)")
     }
     
     // Fetch list of genres from API through NetworkManager
@@ -162,39 +158,53 @@ class GenreViewModel: ObservableObject {
         }
     }
     
-    // Load selected local genres from Core Data
-        func loadSelectedGenres() {
+    // Load favourited local genres from Core Data
+        func loadFavouritedGenres() {
             let request: NSFetchRequest<UserPreference> = UserPreference.fetchRequest()
             do {
                 if let userPreference = try context.fetch(request).first {
-                    self.selectedGenres = userPreference.favouriteGenres?.components(separatedBy: ",") ?? []
+                    self.favouritedGenres = userPreference.favouriteGenres?.components(separatedBy: ",") ?? []
                 }
             } catch {
-                print("Failed to fetch selected genres: \(error)")
+                print("Failed to fetch favourited genres: \(error)")
             }
         }
 
-        // Save selected local genres to Core Data
-        func saveSelectedGenres() {
+        // Save favourited local genres to Core Data
+        func saveFavouritedGenres() {
             let request: NSFetchRequest<UserPreference> = UserPreference.fetchRequest()
             do {
                 let userPreference = try context.fetch(request).first ?? UserPreference(context: context)
-                userPreference.favouriteGenres = selectedGenres.joined(separator: ",")
+                userPreference.favouriteGenres = favouritedGenres.joined(separator: ",")
                 try context.save()
             } catch {
-                print("Failed to save selected genres: \(error)")
+                print("Failed to save favourited genres: \(error)")
             }
         }
     
     // Update the `isFavourited` status of genres based on restored data
-    func updateFavouritedGenres(restoredGenres: [String]) {
-        allGenres = allGenres.map { genre in
-            var updatedGenre = genre
-            updatedGenre.isFavourited = restoredGenres.contains(genre.name)
-            return updatedGenre
+    func updateCloudFavouritedGenres(restoredGenres: [String]) {
+        print("Fetched favourite genres from Firestore: \(restoredGenres)")
+        
+        // Check if allGenres is empty
+        if allGenres.isEmpty {
+            print("Error: allGenres is empty. Ensure genres are loaded before updating.")
+            return
         }
 
-        // Save the updated favourited statuses back to Core Data
+        for i in 0..<allGenres.count {
+            let normalizedName = allGenres[i].name.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            let shouldBeFavourited = restoredGenres.contains { restored in
+                restored.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == normalizedName
+            }
+            allGenres[i].isFavourited = shouldBeFavourited
+        }
+
+        favouritedGenres = allGenres.filter { $0.isFavourited }.map { $0.name }
+        
+        print("Updated allGenres: \(allGenres)")
+        print("Updated favouritedGenres: \(favouritedGenres)")
+        
         saveGenresToCoreData(genres: allGenres)
     }
 }

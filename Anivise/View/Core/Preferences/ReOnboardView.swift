@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ReOnboardView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var selection = 0
     var body: some View {
         ZStack {
@@ -38,7 +39,7 @@ struct ReOnboardView: View {
                     Spacer()
                     Button(action: {
                         // Dismiss the view altogether
-                        
+                        self.presentationMode.wrappedValue.dismiss()
                     }) {
                         Text("Get Started")
                             .foregroundColor(.white)

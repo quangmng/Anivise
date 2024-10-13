@@ -10,20 +10,28 @@ struct AnimeResponse: Codable {
     let data: [Anime]
 }
 
-struct Anime: Codable, Identifiable {
+struct Anime: Hashable, Codable, Identifiable {
+    static func == (lhs: Anime, rhs: Anime) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     let id: Int
     let title: String
     let synopsis: String
     let images: AnimeImages
     let genreIds: [Int] // Capturing genre IDs for each anime
     let genres: [AnimeGenre]?
+    
 
     enum CodingKeys: String, CodingKey {
         case id = "mal_id"
         case title
         case synopsis
         case images
-        //case genreIds = "genres" // Map genres from JSON to genreIDs for SSOT
         case genres
     }
     

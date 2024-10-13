@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var selection = 0
     @State private var showGenreSelection = false
     
@@ -51,6 +52,9 @@ struct OnboardingView: View {
                     .padding()
                     .fullScreenCover(isPresented: $showGenreSelection, content: {
                         GenreSelectView()
+                            .onDisappear(){
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
                     })
                 }
             }

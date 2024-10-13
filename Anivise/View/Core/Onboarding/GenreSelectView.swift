@@ -24,9 +24,9 @@ struct GenreSelectView: View {
                 List(viewModel.allGenres, id: \.name) { genre in
                     HStack {
                         // Toggle between filled and unfilled star based on selection
-                        Image(systemName: viewModel.selectedGenres.contains(genre.name) ? "star.fill" : "star")
-                            .symbolEffect(.bounce, value: animationCount)
-                            .foregroundStyle(genre.isFavourited == true ? .yellow : .gray)
+                        Image(systemName: viewModel.favouritedGenres.contains(genre.name) ? "star.fill" : "star")
+                            //.symbolEffect(.bounce.wholeSymbol, value: animationCount)
+                            .foregroundStyle(.yellow)
                         
                         Text(genre.name)
                             .font(.body)
@@ -70,10 +70,10 @@ struct GenreSelectView: View {
 
 
     private func toggleSelection(for genre: AnimeGenre) {
-        if let index = viewModel.selectedGenres.firstIndex(of: genre.name) {
-            viewModel.selectedGenres.remove(at: index)  // Remove from selection if already selected
+        if let index = viewModel.favouritedGenres.firstIndex(of: genre.name) {
+            viewModel.favouritedGenres.remove(at: index)  // Remove from selection if already selected
         } else {
-            viewModel.selectedGenres.append(genre.name)  // Add to selection if not selected
+            viewModel.favouritedGenres.append(genre.name)  // Add to selection if not selected
         }
     }
 }

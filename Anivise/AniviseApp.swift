@@ -38,5 +38,6 @@ struct AniviseApp: App {
             }
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+        
     }
 }

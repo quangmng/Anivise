@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct PreferencesView: View {
     @StateObject private var viewModel = PreferencesViewModel()
+    @StateObject private var genreViewModel = GenreViewModel()
     @State private var showLogin = false
     @State private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     @State private var showGenre = false
@@ -28,7 +29,10 @@ struct PreferencesView: View {
                     }
                 }
                 .sheet(isPresented: $showGenre) {
-                    GenreSelectView()
+                    NavigationStack{
+                        GenreSelectView()
+                            .onAppear {genreViewModel.loadGenres()}
+                    }
                 }
                 .presentationDetents([.large])
             }
@@ -78,14 +82,20 @@ struct PreferencesView: View {
                 if viewModel.userLoggedIn {
                     // Display the user's email
                     if let email = viewModel.userEmail {
-                        Text("Hello, \(email)!")
+                        HStack {
+                            Image(systemName: "person.fill")
+                            Text("Hello, \(email)!")
+                        }
                     }
 
                     Button(){
                         viewModel.signOut()
                     } label: {
-                        Text("Sign Out")
-                            .foregroundColor(.red)
+                        HStack {
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                            Text("Sign Out")
+                        }
+                        .foregroundColor(.red)
                     }
                 } else {
                     Text("Sign in to sync your preferences across devices")

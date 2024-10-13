@@ -9,6 +9,9 @@ import SwiftUI
 
 struct DiscoverView: View {
     @StateObject private var viewModel = DiscoverViewModel()
+    @State private var selectedAnime: Anime?
+    @State private var hasLoadedOnce = false
+    @Namespace private var heroTransition
     
     var body: some View {
         NavigationStack {
@@ -18,50 +21,76 @@ struct DiscoverView: View {
                 Text("Error: \(errorMessage)")
             } else {
                 List(viewModel.filteredAnimeList) { anime in
-                    HStack {
-                        AsyncImage(url: URL(string: anime.images.jpg.imageUrl)) { image in image.resizable()
-                        } placeholder: {
-                            ProgressView()
+                    NavigationLink{
+                        if #available(iOS 18.0, *) {
+                            AnimeDetailView(anime: anime)
+                                .navigationTransition(.zoom(sourceID: anime, in: heroTransition))
+                                .matchedTransitionSource(id: anime, in: heroTransition)
+                        } else {
+                            // Fallback on earlier versions
+                            AnimeDetailView(anime: anime)
                         }
-                        .frame(width: 100, height: 150)
-                        .cornerRadius(8)
-
-                        VStack(alignment: .leading) {
-                            Text(anime.title)
-                                .font(.headline)
-                                //.padding(.bottom)
-                            
-                            Button() {
-                                saveToFavorites(anime: anime)
-                            } label: {
-                                Image(systemName: "heart")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
+                    } label: {
+                        HStack {
+                            AsyncImage(url: URL(string: anime.images.jpg.imageUrl)) { image in image.resizable()
+                            } placeholder: {
+                                ProgressView()
                             }
+                            .onTapGesture {
+                                selectedAnime = anime
+                            }
+                            .frame(width: 100, height: 150)
+                            .cornerRadius(8)
+                            
+                            VStack(alignment: .leading) {
+                                Text(anime.title)
+                                    .font(.headline)
+                                //.padding(.bottom)
+                                
+                                Button() {
+                                    saveToFavorites(anime: anime)
+                                } label: {
+                                    Image(systemName: "heart")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                }
+                            }
+                            .padding()
                         }
-                        .padding()
                     }
-                    .refreshable {
-                        viewModel.fetchAnimeList()
-                    }
+                    
                     .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Looking for an anime?")
                     .onSubmit (of: .search){
                         viewModel.filterAnimeList() // Activate search when user taps "return" on keyboard
                     }
                     .searchDictationBehavior(.inline(activation: .onLook))
                     
+                    
+                    }
+                .refreshable {
+                    viewModel.fetchAnimeList()
+                }
+                
+                .navigationDestination(isPresented: Binding(
+                    get: { selectedAnime != nil },
+                    set: { if !$0 { selectedAnime = nil}})) { if let anime = selectedAnime {
+                        AnimeDetailView(anime: anime)
+                    }
+                }
                 }
             }
-        }
-        // Temporal onAppear. In future this will only fetch when app opens or manually refreshed, not when this view is triggered.
-        .onAppear {
-            viewModel.fetchAnimeList()
+        .onAppear(){
+            if !hasLoadedOnce {
+                viewModel.fetchAnimeList()
+                hasLoadedOnce = true
+            }
         }
     }
+    
 
     func saveToFavorites(anime: Anime) {
-//        let genreNames = anime.genres?.map { $0.name } ?? [] // Safely unwrap genres
-//        PersistenceController.shared.saveAnimeItem(anime: anime, genres: genreNames)
+        let genreNames = anime.genres?.map { $0.name } ?? [] // Safely unwrap genres
+        PersistenceController.shared.saveAnimeItem(anime: anime, genres: genreNames)
     }
 }
 
